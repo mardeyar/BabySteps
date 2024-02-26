@@ -33,4 +33,20 @@ const createProfile = (firstName, middleName, lastName, gender, dob, photo) => {
     });
 };
 
-export { initialSetup, createProfile };
+// This function exists to check table for data; if there is data, skip first run pages on app launch
+const checkData = (callback) => {
+    db.transaction(tx => {
+        tx.executeSql(
+            'SELECT * FROM baby_profile',
+            [],
+            (_, result) => {
+                callback(result.rows._array);
+            },
+            (_, error) => {
+                console.log('Error fetching data from table "baby_profile": ', error);
+            }
+        );
+    });
+};
+
+export { initialSetup, createProfile, checkData };
