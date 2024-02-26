@@ -27,6 +27,12 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "This app accesses your photos to set and display your baby's profile picture"
+        }
+      ],
       "expo-router"
     ]
   }
