@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { initialSetup, createProfile, checkData } from './database/DatabaseManager';
+import { initialSetup, checkData } from './database/DatabaseManager';
 
 import Information from './views/FirstRun/Information';
-import PhotoInput from './views/FirstRun/PhotoInput';
-import Disclaimer from './views/FirstRun/Disclaimer';
+// import FirstRunInput from './views/FirstRun/Information'
+// import Disclaimer from './views/FirstRun/Disclaimer';
 import MainPage from './views/Main/MainPage';
 
 
@@ -39,28 +39,9 @@ export default function App() {
         // Render initial setup if not
         <>
           <Information />
-          <PhotoInput />
-          <Disclaimer />
+          {/* <Disclaimer /> */}
         </>
       )}
     </>
   );
 }
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Here is my app</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#01d68b',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
