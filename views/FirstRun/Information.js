@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Image, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { createProfile } from '../../database/DatabaseManager';
 import { infoStyle } from '../styles/firstrun';
 
@@ -11,6 +12,7 @@ const Information = () => {
     const [gender, setGender] = useState('');
     const [dob, setDob] = useState('');
     const [photo, setPhoto] = useState(null);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
     // This code block is here to ask the user permission to access photos for setting profile picture
     const pickImage = async () => {
@@ -27,6 +29,19 @@ const Information = () => {
             setPhoto(result.assets[0].uri);
         }
     };
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    }
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    }
+
+    const handleConfirm = (date) => {
+        setDob(date);
+        hideDatePicker();
+    }
 
     const saveToDb = () => {
         // Need to ensure required fields are not null
@@ -68,12 +83,21 @@ const Information = () => {
                 value={gender}
                 onChangeText={setGender}
             />
-            <TextInput
+            <View>
+                <Button title="Select DOB" onPress={showDatePicker} />
+                <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                />
+            </View>
+            {/* <TextInput
                 style={infoStyle.input}
                 placeholder="DOB (YYYY-MM-DD)"
                 value={dob}
                 onChangeText={setDob}
-            />
+            /> */}
             <Button title="Continue" onPress={saveToDb} />
         </View>
     );
