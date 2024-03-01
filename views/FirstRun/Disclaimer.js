@@ -29,6 +29,6 @@ const Disclaimer = () => {
             <Button title="Continue" onPress={handleDisclaimer}/>
         </View>
     );
-}
+};
 
 export default Disclaimer;
