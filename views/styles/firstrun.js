@@ -23,3 +23,7 @@ export const infoStyle = StyleSheet.create({
         marginBottom: 10,
     },
 });
+
+export const aboutStyle = StyleSheet.create({
+    
+});

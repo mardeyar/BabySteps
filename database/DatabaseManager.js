@@ -6,7 +6,7 @@ const db = SQLite.openDatabase('babysteps.db');
 const initialSetup = () => {
     db.transaction(tx => {
         tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS baby_profile (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, middle_name TEXT, last_name TEXT NOT NULL, gender TEXT NOT NULL, dob TEXT NOT NULL, photo TEXT)',
+            'CREATE TABLE IF NOT EXISTS baby_profile (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, middle_name TEXT, last_name TEXT NOT NULL, gender TEXT NOT NULL, dob TEXT NOT NULL, photo TEXT, disclaimer BOOLEAN NOT NULL DEFAULT 0)',
             [],
             (_, result) => {
                 console.log('Table named "baby_profile" created successfully!');
@@ -33,20 +33,35 @@ const createProfile = (firstName, middleName, lastName, gender, dob, photo) => {
     });
 };
 
-// This function exists to check table for data; if there is data, skip first run pages on app launch
-const checkData = (callback) => {
+const disclaimerCheck = (acknowledged) => {
     db.transaction(tx => {
         tx.executeSql(
-            'SELECT * FROM baby_profile',
-            [],
+            'UPDATE baby_profile SET disclaimer = ? WHERE id = 1',
+            [acknowledged ? 1 : 0],
             (_, result) => {
-                callback(result.rows._array);
+                console.log('User acknowledged disclaimer');
             },
             (_, error) => {
-                console.log('Error fetching data from table "baby_profile": ', error);
-            }
+                console.log('Acknowledgment error: ', error);
+            },
         );
     });
 };
 
-export { initialSetup, createProfile, checkData };
+// This function exists to check table for data; if there is data, skip first run pages on app launch
+// const checkData = (callback) => {
+//     db.transaction(tx => {
+//         tx.executeSql(
+//             'SELECT * FROM baby_profile',
+//             [],
+//             (_, result) => {
+//                 callback(result.rows._array);
+//             },
+//             (_, error) => {
+//                 console.log('Error fetching data from table "baby_profile": ', error);
+//             }
+//         );
+//     });
+// };
+
+export { initialSetup, createProfile, disclaimerCheck };
