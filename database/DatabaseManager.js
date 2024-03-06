@@ -2,11 +2,11 @@ import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('babysteps.db');
 
-// Function to create tables if they do not already exist. This is generally a first run situation.
-const initialSetup = () => {
+// Function to create tables if they do not already exist. This is a first run situation.
+const profileSetup = () => {
     db.transaction(tx => {
         tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS baby_profile (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, middle_name TEXT, last_name TEXT NOT NULL, gender TEXT NOT NULL, dob DATE NOT NULL, photo TEXT, disclaimer BOOLEAN NOT NULL DEFAULT 0)',
+            'CREATE TABLE IF NOT EXISTS baby_profile (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, gender TEXT NOT NULL, dob DATE NOT NULL, photo TEXT)',
             [],
             (_, result) => {
                 console.log('Table named "baby_profile" created successfully!');
@@ -18,16 +18,46 @@ const initialSetup = () => {
     });
 };
 
-const createProfile = (firstName, middleName, lastName, gender, dob, photo) => {
+const milestoneSetup = () => {
     db.transaction(tx => {
         tx.executeSql(
-            'INSERT INTO baby_profile (first_name, middle_name, last_name, gender, dob, photo) VALUES (?, ?, ?, ?, ?, ?)',
-            [firstName, middleName, lastName, gender, dob, photo || null], // photo || null makes inserting a photo optional
+            'CREATE TABLE IF NOT EXISTS milestones (id INTEGER PRIMARY KEY AUTOINCREMENT, week_number INTEGER NOT NULL, milestone_name TEXT NOT NULL, milestone_info TEXT NOT NULL, date DATE NOT NULL, photo TEXT)',
+            [],
+            (_, result) => {
+                console.log('Table named "milestones" created successfully!');
+            },
+            (_, error) => {
+                console.log('Error creating table "milestones": ', error);
+            },
+        );
+    });
+};
+
+const createProfile = (firstName, lastName, gender, dob, photo) => {
+    db.transaction(tx => {
+        tx.executeSql(
+            'INSERT INTO baby_profile (first_name, last_name, gender, dob, photo) VALUES (?, ?, ?, ?, ?)',
+            [firstName, lastName, gender, dob, photo || null], // photo || null makes inserting a photo optional
             (_, result) => {
                 console.log('Profile created successfully!');
             },
             (_, error) => {
-                console.log('Error creating profile: ', error)
+                console.log('Error creating profile: ', error);
+            },
+        );
+    });
+};
+
+const createMilestone = (weekNumber, milestoneName, milestoneInfo, date, photo) => {
+    db.transaction(tx => {
+        tx.executeSql(
+            'INSERT INTO baby_profile (week_number, milestone_name, milestone_info, date, photo) VALUES (?, ?, ?, ?, ?)',
+            [weekNumber, milestoneName, milestoneInfo, date, photo || null],
+            (_, result) => {
+                console.log('Milestone created successfully!');
+            },
+            (_, error) => {
+                console.log('Error creating milestone: ', error);
             },
         );
     });
@@ -49,4 +79,4 @@ const checkData = (callback) => {
     });
 };
 
-export { initialSetup, createProfile, checkData };
+export { profileSetup, createProfile, checkData, milestoneSetup, createMilestone };
