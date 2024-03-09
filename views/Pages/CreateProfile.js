@@ -3,6 +3,7 @@ import { View, TextInput, Button, Image, Alert, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useNavigation } from '@react-navigation/native';
+import GenderDropdown from '../../components/Dropdown';
 
 import { createProfile } from '../../database/DatabaseManager';
 import { infoStyle } from '../styles/firstrun';
@@ -43,7 +44,15 @@ const CreateProfile = () => {
     }
 
     const handleConfirm = (date) => {
-        setDob(date);
+        // This will format the date to string type instead of numbers ex. April 1/2020 vs 4/01/2020
+        const dateFormat = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+
+        const formattedDate = date.toLocaleDateString(undefined, dateFormat);
+        setDob(formattedDate);
         hideDatePicker();
     }
 
@@ -75,12 +84,13 @@ const CreateProfile = () => {
                 value={lastName}
                 onChangeText={setLastName}
             />
-            <TextInput
+            <GenderDropdown value={gender} setValue={setGender} />
+            {/* <TextInput
                 style={infoStyle.input}
                 placeholder="Gender"
                 value={gender}
                 onChangeText={setGender}
-            />
+            /> */}
             <View>
                 <Button title="Select DOB" onPress={showDatePicker} />
                 <DateTimePickerModal
@@ -88,6 +98,7 @@ const CreateProfile = () => {
                     mode="date"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
+                    value={dob}
                 />
                 {/* {dob && <Text>DOB: {dob}</Text>} */}
             </View>
