@@ -3,9 +3,9 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { profileSetup, disclaimerCheckSetup, checkData, milestoneSetup } from './database/DatabaseManager';
+import { profileSetup, milestoneSetup } from './database/DatabaseManager';
 
-import CreateProfile from './views/Pages/CreateProfile';
+import Milestone from './views/Pages/Milestone';
 import MainPage from './views/Pages/MainPage';
 import SettingsPage from './views/Pages/Settings';
 
@@ -17,7 +17,7 @@ export default function App() {
   useEffect(() => {
     profileSetup();
     milestoneSetup();
-  }, []);
+  });
 
   return (
     <NavigationContainer>
@@ -31,7 +31,15 @@ export default function App() {
             ),
           }}
           />
-        <Tab.Screen name="Milestone" component={CreateProfile} />
+        <Tab.Screen 
+          name="Milestone" 
+          component={Milestone} 
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name='scan-circle-outline' color={color} size={size} />
+            ),
+          }}
+          />
         <Tab.Screen 
           name="Settings Page" 
           component={SettingsPage} 
