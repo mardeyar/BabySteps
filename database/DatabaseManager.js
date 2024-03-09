@@ -3,13 +3,18 @@ import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabase('babysteps.db');
 
 // Function to create tables if they do not already exist. This is a first run situation.
+// TODO: Fix up console log conditionals for table creation
 const profileSetup = () => {
     db.transaction(tx => {
         tx.executeSql(
             'CREATE TABLE IF NOT EXISTS baby_profile (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, gender TEXT NOT NULL, dob DATE NOT NULL, photo TEXT)',
             [],
             (_, result) => {
-                console.log('Table named "baby_profile" created successfully!');
+                if (result.rowsAffected === 0) {
+                    console.log('Table named "baby_profile" already exists: skipping table creation...');
+                } else {
+                    console.log('Table named "baby_profile" created successfully!');
+                }
             },
             (_, error) => {
                 console.log('Error creating table "baby_profile": ', error);
@@ -21,10 +26,14 @@ const profileSetup = () => {
 const milestoneSetup = () => {
     db.transaction(tx => {
         tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS milestones (id INTEGER PRIMARY KEY AUTOINCREMENT, week_number INTEGER NOT NULL, milestone_name TEXT NOT NULL, milestone_info TEXT NOT NULL, date DATE NOT NULL, photo TEXT)',
+            'CREATE TABLE IF NOT EXISTS milestones (milestone_id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE NOT NULL, milestone_name TEXT NOT NULL, milestone_info TEXT NOT NULL, photo TEXT)',
             [],
             (_, result) => {
-                console.log('Table named "milestones" created successfully!');
+                if (result.rowsAffected === 0) {
+                    console.log('Table named "milestones" already exists: skipping table creation...');
+                } else {
+                    console.log('Table named "milestones" created successfully!');
+                }
             },
             (_, error) => {
                 console.log('Error creating table "milestones": ', error);
@@ -48,11 +57,11 @@ const createProfile = (firstName, lastName, gender, dob, photo) => {
     });
 };
 
-const createMilestone = (weekNumber, milestoneName, milestoneInfo, date, photo) => {
+const createMilestone = (milestoneName, milestoneInfo, date, photo) => {
     db.transaction(tx => {
         tx.executeSql(
-            'INSERT INTO baby_profile (week_number, milestone_name, milestone_info, date, photo) VALUES (?, ?, ?, ?, ?)',
-            [weekNumber, milestoneName, milestoneInfo, date, photo || null],
+            'INSERT INTO milestones (date, milestone_name, milestone_info, photo) VALUES (?, ?, ?, ?, ?)',
+            [date, milestoneName, milestoneInfo, photo || null],
             (_, result) => {
                 console.log('Milestone created successfully!');
             },
@@ -70,7 +79,11 @@ const checkData = (callback) => {
             'SELECT * FROM baby_profile',
             [],
             (_, result) => {
-                callback(result.rows._array);
+                if (result.rows._array.length > 0) {
+                    callback(result.rows._array);
+                } else {
+                    callback([]);
+                }
             },
             (_, error) => {
                 console.log('Error fetching data from table "baby_profile": ', error);
