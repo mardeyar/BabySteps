@@ -1,13 +1,14 @@
 import React, { useState } from "react"
-import { View, TextInput } from "react-native";
+import { View, TextInput, Button } from "react-native";
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import { createMilestone } from '../../database/DatabaseManager';
-import { TextField } from '../../components/TextField';
+import MilestoneBody from '../../components/MilestoneBody';
 
 const Milestone = () => {
+    const [milestoneDate, setMilestoneDate] = useState('');
     const [milestoneName, setMilestoneName] = useState('');
     const [milestoneInfo, setMilestoneInfo] = useState('');
-    const [postingDate, setPostingDate] = useState('');
     const [photo, setPhoto] = useState('');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -44,7 +45,7 @@ const Milestone = () => {
         };
 
         const formattedDate = date.toLocaleDateString(undefined, dateFormat);
-        setPostingDate(formattedDate);
+        setMilestoneDate(formattedDate);
         hideDatePicker();
     }
 
@@ -68,7 +69,19 @@ const Milestone = () => {
                 value={milestoneName}
                 onChangeText={setMilestoneName}
             />
-            <TextField text={milestoneInfo} setText={setMilestoneInfo}/>
+            <MilestoneBody text={milestoneInfo} setText={setMilestoneInfo}/>
+            <View>
+                <Button title="Date of milestone" onPress={showDatePicker} />
+                <DateTimePickerModal
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                    value={milestoneDate}
+                    textColor="black"
+                />
+                {/* {dob && <Text>DOB: {dob}</Text>} */}
+            </View>
         </View>
     );
 }
