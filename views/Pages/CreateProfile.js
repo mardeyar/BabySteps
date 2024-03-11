@@ -99,6 +99,7 @@ const CreateProfile = () => {
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
                     value={dob}
+                    textColor='black'
                 />
                 {/* {dob && <Text>DOB: {dob}</Text>} */}
             </View>
