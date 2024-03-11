@@ -36,7 +36,7 @@ export default function App() {
           component={Milestone} 
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name='scan-circle-outline' color={color} size={size} />
+              <Ionicons name='add-circle-outline' color={color} size={size} />
             ),
           }}
           />
