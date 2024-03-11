@@ -26,15 +26,15 @@ const SettingsScreen = () => {
     <View>
       <Button
         title="Create Profile"
-        onPress={() => navigation.navigate(CreateProfile)}
+        onPress={() => navigation.navigate("Create Profile")}
       />
       <Button
         title="Disclaimer"
-        onPress={() => navigation.navigate(Disclaimer)}
+        onPress={() => navigation.navigate("Disclaimer")}
       />
       <Button
         title="Profile"
-        onPress={() => navigation.navigate(Profile)}
+        onPress={() => navigation.navigate("Profile")}
       />
     </View>
   );
