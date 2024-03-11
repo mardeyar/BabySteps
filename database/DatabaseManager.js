@@ -26,7 +26,7 @@ const profileSetup = () => {
 const milestoneSetup = () => {
     db.transaction(tx => {
         tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS milestones (milestone_id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE NOT NULL, milestone_name TEXT NOT NULL, milestone_info TEXT NOT NULL, photo TEXT)',
+            'CREATE TABLE IF NOT EXISTS milestones (milestone_id INTEGER PRIMARY KEY AUTOINCREMENT, milestone_date DATE NOT NULL, milestone_name TEXT NOT NULL, milestone_info TEXT NOT NULL, photo TEXT)',
             [],
             (_, result) => {
                 if (result.rowsAffected === 0) {
@@ -57,11 +57,11 @@ const createProfile = (firstName, lastName, gender, dob, photo) => {
     });
 };
 
-const createMilestone = (milestoneName, milestoneInfo, date, photo) => {
+const createMilestone = (milestoneDate, milestoneName, milestoneInfo, photo) => {
     db.transaction(tx => {
         tx.executeSql(
-            'INSERT INTO milestones (date, milestone_name, milestone_info, photo) VALUES (?, ?, ?, ?, ?)',
-            [date, milestoneName, milestoneInfo, photo || null],
+            'INSERT INTO milestones (milestone_date, milestone_name, milestone_info, photo) VALUES (?, ?, ?, ?)',
+            [milestoneDate, milestoneName, milestoneInfo, photo || null],
             (_, result) => {
                 console.log('Milestone created successfully!');
             },
