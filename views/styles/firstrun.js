@@ -21,7 +21,18 @@ export const infoStyle = StyleSheet.create({
         height: 200,
         borderRadius: 100,
         marginBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
+    placeholder: {
+        width: 200,
+        height: 200,
+        borderRadius: 100,
+        borderWidth: 2,
+        borderColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 });
 
 export const aboutStyle = StyleSheet.create({
