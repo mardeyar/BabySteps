@@ -63,10 +63,51 @@ const createMilestone = (milestoneDate, milestoneName, milestoneInfo, photo) => 
             'INSERT INTO milestones (milestone_date, milestone_name, milestone_info, photo) VALUES (?, ?, ?, ?)',
             [milestoneDate, milestoneName, milestoneInfo, photo || null],
             (_, result) => {
-                console.log('Milestone created successfully!');
+                console.log('Milestone created successfully!', result.rowsAffected);
             },
             (_, error) => {
                 console.log('Error creating milestone: ', error);
+            },
+        );
+    });
+};
+
+const fetchMilestones = (callback) => {
+    db.transaction(tx => {
+        tx.executeSql(
+            'SELECT * FROM milestones',
+            [],
+            (_, result) => {
+                const rows = result.rows._array;
+                console.log('Fetched', rows.length, 'memories');
+                if (rows.length > 0) {
+                    callback(rows);
+                } else {
+                    console.log('No milestones found.');
+                    callback([]);
+                }
+            },
+            (_, error) => {
+                console.log('Error fetching milestones: ', error);
+                callback([]);
+            }
+        );
+    });
+};
+
+const deleteMemory = (milestoneId, callback) => {
+    db.transaction(tx => {
+        tx.executeSql(
+            'DELETE FROM milestones WHERE milestone_id = ?',
+            [milestoneId],
+            (_, result) => {
+                console.log('Memory successfully deleted!', result.rowsAffected);
+                if (callback) {
+                    callback();
+                }
+            },
+            (_, error) => {
+                console.log('Error deleting memory: ', error);
             },
         );
     });
@@ -92,4 +133,4 @@ const checkData = (callback) => {
     });
 };
 
-export { profileSetup, createProfile, checkData, milestoneSetup, createMilestone };
+export { profileSetup, createProfile, checkData, milestoneSetup, createMilestone, fetchMilestones, deleteMemory };

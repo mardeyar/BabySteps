@@ -1,18 +1,23 @@
 import React, { useState } from "react"
-import { View, TextInput, Button } from "react-native";
+import * as ImagePicker from 'expo-image-picker';
+import { View, TextInput, Button, Image, Alert } from "react-native";
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { useNavigation } from '@react-navigation/native';
 
+import { infoStyle } from '../styles/firstrun';
 import { createMilestone } from '../../database/DatabaseManager';
 import MilestoneBody from '../../components/MilestoneBody';
 
 const Milestone = () => {
+    const navigation = useNavigation();
+    
     const [milestoneDate, setMilestoneDate] = useState('');
     const [milestoneName, setMilestoneName] = useState('');
     const [milestoneInfo, setMilestoneInfo] = useState('');
     const [photo, setPhoto] = useState('');
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-    // This code block is here to ask the user permission to access photos for setting profile picture
+    // TODO: Change this to better suit a posting image instead of profile 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -37,33 +42,38 @@ const Milestone = () => {
     }
 
     const handleConfirm = (date) => {
-        // This will format the date to string type instead of numbers ex. April 1/2020 vs 4/01/2020
-        const dateFormat = {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        };
-
-        const formattedDate = date.toLocaleDateString(undefined, dateFormat);
+        const formattedDate = date.toISOString().split('T')[0];
         setMilestoneDate(formattedDate);
         hideDatePicker();
     }
 
     const saveToDb = () => {
         // Need to ensure required fields are not null
-        if (!postingDate || !milestoneName || !milestoneInfo) {
+        if (!milestoneDate || !milestoneName || !milestoneInfo) {
             Alert.alert('Missing information', 'Please fill in all required fields');
             return;
         }
 
         // Save img path as 'photo' column in the milestones table
-        createMilestone(postingDate, milestoneName, milestoneInfo, photo || '');
-        //navigation.navigate('MainPage', {refresh: true });
+        createMilestone(milestoneDate, milestoneName, milestoneInfo, photo || '');
+        Alert.alert('Success', 'Milestone created!', [
+            { text: 'OK', onPress: () => {
+                // Reset all state variable to clear the screen then nav to home
+                setMilestoneDate('');
+                setMilestoneName('');
+                setMilestoneInfo('');
+                setPhoto('');
+
+                navigation.navigate('Home');
+            }}
+        ]);
     };
 
     // The view
     return (
         <View>
+        {photo && <Image source={{ uri: photo }} style={infoStyle.photo} />}
+            <Button title="Choose photo" onPress={pickImage} />
             <TextInput 
                 placeholder="Milestone Name"
                 value={milestoneName}
@@ -80,8 +90,13 @@ const Milestone = () => {
                     value={milestoneDate}
                     textColor="black"
                 />
-                {/* {dob && <Text>DOB: {dob}</Text>} */}
+                <TextInput
+                    placeholder="Date" 
+                    value={milestoneDate}
+                    editable={false}
+                />
             </View>
+            <Button title="Save" onPress={saveToDb} />
         </View>
     );
 }
