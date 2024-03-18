@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
 
 const Disclaimer = () => {
 
@@ -13,6 +13,7 @@ const Disclaimer = () => {
             and not seen by any 3rd parties, keeping your information private to only you. Due to this storage method, your data being contained to your device means there are 
             no backup options should you delete the app; deleting BabySteps from your device means deleting all data associated with BabySteps that you have entered up to this 
             point.</Text>
+            <Button title="I accept" />
         </View>
     );
 };
