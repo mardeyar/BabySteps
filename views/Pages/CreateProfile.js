@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Image, Alert, Text } from 'react-native';
+import { View, TextInput, Button, Image, Alert, Text, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useNavigation } from '@react-navigation/native';
 import GenderDropdown from '../../components/Dropdown';
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { createProfile } from '../../database/DatabaseManager';
 import { infoStyle } from '../styles/firstrun';
@@ -65,13 +66,31 @@ const CreateProfile = () => {
 
         // Save img path as 'photo' column in the baby_profile table
         createProfile(firstName, lastName, gender, dob, photo || '');
-        //navigation.navigate('MainPage', {refresh: true });
+        Alert.alert(
+            'Success!',
+            "You have created your baby's profile",
+            [
+                {
+                    text: 'Okay',
+                    onPress: () => navigation.navigate('Settings')
+                }
+            ]
+        );
     };
 
     return (
         <View style={infoStyle.container}>
-            {photo && <Image source={{ uri: photo }} style={infoStyle.photo} />}
-            <Button title="Choose photo" onPress={pickImage} />
+        <TouchableOpacity onPress={pickImage}>
+            <View style={[infoStyle.photo, { backgroundColor: photo ? 'transparent' : '#ccc' }]}>
+                {photo ? (
+                    <Image source={{ uri: photo }} style={infoStyle.photo} />
+                ) : (
+                    <View style={infoStyle.placeholder}>
+                        <MaterialCommunityIcons name="plus" size={40} color="black" />
+                    </View>
+                )}
+            </View>
+        </TouchableOpacity>
             <TextInput
                 style={infoStyle.input}
                 placeholder="First name"
@@ -85,12 +104,6 @@ const CreateProfile = () => {
                 onChangeText={setLastName}
             />
             <GenderDropdown value={gender} setValue={setGender} />
-            {/* <TextInput
-                style={infoStyle.input}
-                placeholder="Gender"
-                value={gender}
-                onChangeText={setGender}
-            /> */}
             <View>
                 <Button title="Select DOB" onPress={showDatePicker} />
                 <DateTimePickerModal
@@ -101,7 +114,11 @@ const CreateProfile = () => {
                     value={dob}
                     textColor='black'
                 />
-                {/* {dob && <Text>DOB: {dob}</Text>} */}
+                <TextInput 
+                    placeholder='DOB'
+                    value={dob}
+                    editable={false}
+                />
             </View>
             <Button title="Save" onPress={saveToDb} />
         </View>
