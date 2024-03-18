@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { profileSetup, milestoneSetup } from './database/DatabaseManager';
+import { useFonts } from 'expo-font';
 
 import Milestone from './views/Pages/Milestone';
 import MainPage from './views/Pages/MainPage';
@@ -12,6 +13,11 @@ import SettingsPage from './views/Pages/Settings';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+
+  // Decalre the fonts the app will use
+  useFonts({
+    'Urbanist': require('./assets/fonts/Urbanist.ttf'),
+  });
 
   // Need to run the setup methods from DB manager to create tables if they don't exist
   useEffect(() => {
@@ -32,7 +38,7 @@ export default function App() {
           }}
           />
         <Tab.Screen 
-          name="Milestone" 
+          name="Add Memory" 
           component={Milestone} 
           options={{
             tabBarIcon: ({ color, size }) => (
