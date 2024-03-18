@@ -4,6 +4,8 @@ import { View, Text, Image } from 'react-native';
 import { checkData } from '../../database/DatabaseManager';
 import { useFocusEffect } from '@react-navigation/native';
 
+import { ProfileStyle } from '../styles/ProfileStyle';
+
 const Profile = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -22,10 +24,14 @@ const Profile = () => {
     });
 
     return(
-        <View>
-            <Image source={{ uri: babyPhoto}} style={{ width: 300, height: 300}} />
-            <Text>{firstName} {lastName}</Text>
-            <Text>{dob}</Text>    
+        <View style={ProfileStyle.body}>
+            <View style={ProfileStyle.cardContainer}>
+                {babyPhoto ? (
+                    <Image source={{ uri: babyPhoto}} style={ProfileStyle.profilePic} />
+                ) : null}
+                <Text style={ProfileStyle.profileName}>{firstName} {lastName}</Text>
+                <Text style={ProfileStyle.birthText}>Born on {dob}</Text>
+            </View>
         </View>
     )
 }
