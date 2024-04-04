@@ -7,48 +7,68 @@ const db = SQLite.openDatabase('babysteps.db');
 const profileSetup = () => {
     db.transaction(tx => {
         tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS baby_profile (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, gender TEXT NOT NULL, dob DATE NOT NULL, photo TEXT)',
+            'SELECT name FROM sqlite_master WHERE type="table" AND name="baby_profile"',
             [],
             (_, result) => {
-                if (result.rowsAffected === 0) {
+                if (result.rows.length > 0) {
                     console.log('Table named "baby_profile" already exists: skipping table creation...');
                 } else {
-                    console.log('Table named "baby_profile" created successfully!');
+                    tx.executeSql(
+                        'CREATE TABLE baby_profile (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, dob DATE NOT NULL, dad_name TEXT NOT NULL, mom_name TEXT NOT NULL, birth_height INT NOT NULL, birth_weight_lb INT NOT NULL, birth_weight_oz INT NOT NULL, photo TEXT)',
+                        [],
+                        () => {
+                            console.log('Table named "baby_profile" created successfully');
+                        },
+                        (_, error) => {
+                            console.log('Error creating table "baby_profile": ', error);
+                        }
+                    );
                 }
             },
             (_, error) => {
-                console.log('Error creating table "baby_profile": ', error);
-            },
+                console.log('Error checking existence of table "baby_profile": ', error);
+            }
         );
     });
 };
 
-const milestoneSetup = () => {
+const memorySetup = () => {
     db.transaction(tx => {
         tx.executeSql(
-            'CREATE TABLE IF NOT EXISTS milestones (milestone_id INTEGER PRIMARY KEY AUTOINCREMENT, milestone_date DATE NOT NULL, milestone_name TEXT NOT NULL, milestone_info TEXT NOT NULL, photo TEXT)',
+            'SELECT name FROM sqlite_master WHERE type="table" AND name="memories"',
             [],
             (_, result) => {
-                if (result.rowsAffected === 0) {
-                    console.log('Table named "milestones" already exists: skipping table creation...');
+                if (result.rows.length > 0) {
+                    console.log('Table named "memories" already exists: skipping table creation...');
                 } else {
-                    console.log('Table named "milestones" created successfully!');
+                    tx.executeSql(
+                        'CREATE TABLE IF NOT EXISTS memories (memory_id INTEGER PRIMARY KEY AUTOINCREMENT, memory_date DATE NOT NULL, memory_info TEXT NOT NULL, photo TEXT)',
+                        [],
+                        () => {
+                            console.log('Table named "memories" created successfully');
+                        },
+                        (_, error) => {
+                            console.log('Error creating table "memories": ', error);
+                        }
+                    );
                 }
             },
             (_, error) => {
-                console.log('Error creating table "milestones": ', error);
-            },
+                console.log('Error checking existence of table "memories": ', error);
+            }
         );
     });
 };
 
-const createProfile = (firstName, lastName, gender, dob, photo) => {
+const createProfile = (firstName, lastName, dob, photo, dadName, momName, birthHeight, birthLb, birthOz, doctorName, birthLocation) => {
     db.transaction(tx => {
         tx.executeSql(
-            'INSERT INTO baby_profile (first_name, last_name, gender, dob, photo) VALUES (?, ?, ?, ?, ?)',
-            [firstName, lastName, gender, dob, photo || null], // photo || null makes inserting a photo optional
+            'INSERT INTO baby_profile (first_name, last_name, dob, dad_name, mom_name, birth_height, birth_weight_lb, birth_weight_oz, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [firstName, lastName, dob, photo || null, dadName, momName, birthHeight, birthLb, birthOz],
             (_, result) => {
-                console.log('Profile created successfully!');
+                if (result.rowsAffected > 0) {
+                    console.log('Profile created successfully!');
+                }
             },
             (_, error) => {
                 console.log('Error creating profile: ', error);
@@ -57,25 +77,42 @@ const createProfile = (firstName, lastName, gender, dob, photo) => {
     });
 };
 
-const createMilestone = (milestoneDate, milestoneName, milestoneInfo, photo) => {
+const editProfile = (firstName, lastName, dob, photo, dadName, momName, birthHeight, birthLb, birthOz, doctorName, birthLocation) => {
     db.transaction(tx => {
         tx.executeSql(
-            'INSERT INTO milestones (milestone_date, milestone_name, milestone_info, photo) VALUES (?, ?, ?, ?)',
-            [milestoneDate, milestoneName, milestoneInfo, photo || null],
+            'UPDATE baby_profile SET first_name = ?, last_name = ?, dob = ?, dad_name = ?, mom_name = ?, birth_height = ?, birth_weight_lb = ?, birth_weight_oz = ?, photo = ?',
+            [firstName, lastName, dob, photo || null, dadName, momName, birthHeight, birthLb, birthOz],
             (_, result) => {
-                console.log('Milestone created successfully!', result.rowsAffected);
+                if (result.rowsAffected > 0) {
+                    console.log('Profile updated successfully!');
+                }
             },
             (_, error) => {
-                console.log('Error creating milestone: ', error);
+                console.log('Error updating profile: ', error);
             },
         );
     });
 };
 
-const fetchMilestones = (callback) => {
+const createMemory = (memoryDate, memoryInfo, photo) => {
     db.transaction(tx => {
         tx.executeSql(
-            'SELECT * FROM milestones',
+            'INSERT INTO memories (memory_date, memory_info, photo) VALUES (?, ?, ?)',
+            [memoryDate, memoryInfo, photo || null],
+            (_, result) => {
+                console.log('Memory created successfully!', result.rowsAffected);
+            },
+            (_, error) => {
+                console.log('Error creating memory: ', error);
+            },
+        );
+    });
+};
+
+const fetchMemories = (callback) => {
+    db.transaction(tx => {
+        tx.executeSql(
+            'SELECT * FROM memories',
             [],
             (_, result) => {
                 const rows = result.rows._array;
@@ -83,12 +120,12 @@ const fetchMilestones = (callback) => {
                 if (rows.length > 0) {
                     callback(rows);
                 } else {
-                    console.log('No milestones found.');
+                    console.log('No memories found.');
                     callback([]);
                 }
             },
             (_, error) => {
-                console.log('Error fetching milestones: ', error);
+                console.log('Error fetching memories: ', error);
                 callback([]);
             }
         );
@@ -98,7 +135,7 @@ const fetchMilestones = (callback) => {
 const deleteMemory = (milestoneId, callback) => {
     db.transaction(tx => {
         tx.executeSql(
-            'DELETE FROM milestones WHERE milestone_id = ?',
+            'DELETE FROM memories WHERE memory_id = ?',
             [milestoneId],
             (_, result) => {
                 console.log('Memory successfully deleted!', result.rowsAffected);
@@ -120,6 +157,8 @@ const checkData = (callback) => {
             'SELECT * FROM baby_profile',
             [],
             (_, result) => {
+                const rows = result.rows._array;
+                console.log("Data: ", rows);
                 if (result.rows._array.length > 0) {
                     callback(result.rows._array);
                 } else {
@@ -133,4 +172,4 @@ const checkData = (callback) => {
     });
 };
 
-export { profileSetup, createProfile, checkData, milestoneSetup, createMilestone, fetchMilestones, deleteMemory };
+export { profileSetup, createProfile, checkData, memorySetup, createMemory, fetchMemories, deleteMemory, editProfile };
