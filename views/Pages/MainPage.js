@@ -1,37 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, Modal, StyleSheet, TouchableWithoutFeedback, Alert } from 'react-native';
-import { checkData, fetchMilestones, deleteMemory } from '../../database/DatabaseManager';
+import React, { useEffect, useState, useRef } from 'react';
+import { View, Text, Image, ScrollView, TouchableOpacity, Modal, StyleSheet, TouchableWithoutFeedback, Alert, Animated } from 'react-native';
+import { checkData, fetchMemories, deleteMemory } from '../../database/DatabaseManager';
 import { useFocusEffect } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import * as Haptics from 'expo-haptics';
 
-import MilestoneCard from '../../components/MilestoneCard';
+import MemoryCard from '../../components/MemoryCard';
+import { NoMemory, MemoryFeed } from '../styles/Home';
 
 const Home = () => {
-    const [milestones, setMilestones] = useState([]);
+    const [memories, setMemories] = useState([]);
     const [selectedPhoto, setSelectedPhoto] = useState(null);
     const [selectedMemory, setSelectedMemory] = useState(null);
     const navigation = useNavigation();
+    const scaleValue = useRef(new Animated.Value(1)).current;
 
     // This block will refresh the page everytime it opens up memories pop up instantly
     useFocusEffect(
         React.useCallback(() => {
-            fetchMilestones((data) => {
-                const sorted = data.sort((a, b) => new Date(b.milestone_date) - new Date(a.milestone_date));
-                setMilestones(sorted);
+            fetchMemories((data) => {
+                const sorted = data.sort((a, b) => new Date(b.memory_date) - new Date(a.memory_date));
+                setMemories(sorted);
             });
         }, [])
     );
 
     const handlePhotoTap = (photo) => {
         setSelectedPhoto(photo);
+        animatePhoto();
     }
+
+    const animatePhoto = () => {
+        Animated.timing(scaleValue, {
+            toValue: 1,
+            duration: 250,
+            useNativeDriver: true,
+        }).start(() => {
+            scaleValue.setValue(1);
+        });
+    };
 
     const closePhoto = () => {
         setSelectedPhoto(null);
+        scaleValue.setValue(0);
     }
 
-    const handleDeleteMemory = (milestoneId) => {
-        setSelectedMemory(milestoneId);
+    const handleDeleteMemory = (memoryId) => {
+        setSelectedMemory(memoryId);
         Alert.alert(
             'Delete Memory', 
             'Are you sure you want to delete this memory?',
@@ -43,8 +58,8 @@ const Home = () => {
                 { 
                     text: 'Delete', 
                     onPress: () => {
-                        deleteMemory(milestoneId, () => {
-                            setMilestones(prevMilestones => prevMilestones.filter(milestone => milestone.milestone_id !== milestoneId));
+                        deleteMemory(memoryId, () => {
+                            setMemories(prevMemories => prevMemories.filter(memory => memory.memory !== memoryId));
                         });
                     }
                 },
@@ -55,20 +70,20 @@ const Home = () => {
 
     return (
         <ScrollView>
-            {milestones.length === 0 ? (
+            {memories.length === 0 ? (
                 <View>
-                    <Text>You have no memories posted</Text>
+                    <Text style={NoMemory.text}>You have not posted any memories yet. Get started by tapping the <Text style={NoMemory.span}>Add Memory</Text> button below.</Text>
                 </View>
             ) : (
-                milestones.map((milestone, index) => (
-                    <MilestoneCard 
+                memories.map((memory, index) => (
+                    <MemoryCard 
                         key={index}
-                        milestoneDate={milestone.milestone_date}
-                        milestoneName={milestone.milestone_name}
-                        milestoneInfo={milestone.milestone_info}
-                        photo={milestone.photo}
-                        onPressPhoto={() => handlePhotoTap(milestone.photo)}
-                        onLongPressDelete={() => handleDeleteMemory(milestone.milestone_id)}
+                        memoryDate={memory.memory_date}
+                        photo={memory.photo}
+                        memoryInfo={memory.memory_info}
+                        onPressPhoto={() => handlePhotoTap(memory.photo)}
+                        onLongPressDelete={() => handleDeleteMemory(memory.memory_id)}
+                        style={MemoryFeed.card}
                     />
                 ))
             )}
@@ -77,7 +92,7 @@ const Home = () => {
             <Modal visible={!!selectedPhoto} transparent={true} onRequestClose={closePhoto}>
                 <TouchableWithoutFeedback onPress={closePhoto}>
                     <View style={styles.modalBackground}>
-                        <Image source={{ uri: selectedPhoto }} resizeMode="contain" style={styles.fullScreenImage} />
+                        <Animated.Image source={{ uri: selectedPhoto }} resizeMode="contain" style={[styles.fullScreenImage, { transform: [{ scale: scaleValue }] }]} />
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>
