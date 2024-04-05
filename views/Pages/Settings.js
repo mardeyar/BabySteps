@@ -10,6 +10,7 @@ import Disclaimer from "./Disclaimer";
 import Profile from "./Profile";
 import CreateProfile from "./CreateProfile";
 import EditProfile from "./EditProfile";
+import About from "./About";
 
 const Stack = createStackNavigator();
 const ProfileStack = createStackNavigator();
@@ -28,6 +29,7 @@ const toggleDarkMode = () => {
       <Stack.Screen name="Create Profile" component={CreateProfile} />
       <Stack.Screen name="Disclaimer" component={Disclaimer} />
       <Stack.Screen name="Profile" component={ProfileStackScreen} />
+      <Stack.Screen name="About" component={About} />
       {/* <Stack.Screen name="Profile" component={Profile} /> */}
     </Stack.Navigator>
   );
@@ -64,7 +66,7 @@ const SettingsScreen = ({ isDarkMode, toggleDarkMode }) => {
       
       <Text style={SettingsContainer.label}>Information</Text>
       <View style={SettingsContainer.containerStyle}>
-        <TouchableOpacity style={SettingsCard.cardStyle} onPress={() => navigation.navigate("Disclaimer")} >
+        <TouchableOpacity style={SettingsCard.cardStyle} onPress={() => navigation.navigate("About")} >
           <Text>About</Text>
           <MaterialCommunityIcons name="chevron-right" size={20} color="#5A5A5A" />
         </TouchableOpacity>
