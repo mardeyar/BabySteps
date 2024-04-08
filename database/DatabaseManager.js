@@ -138,7 +138,7 @@ const deleteMemory = (milestoneId, callback) => {
             'DELETE FROM memories WHERE memory_id = ?',
             [milestoneId],
             (_, result) => {
-                console.log('Memory successfully deleted!', result.rowsAffected);
+                console.log('Deleted', result.rowsAffected, 'memory');
                 if (callback) {
                     callback();
                 }
@@ -158,7 +158,8 @@ const checkData = (callback) => {
             [],
             (_, result) => {
                 const rows = result.rows._array;
-                console.log("Data: ", rows);
+                //console.log("Data: ", rows);
+                console.log("Baby data fetched successfully...")
                 if (result.rows._array.length > 0) {
                     callback(result.rows._array);
                 } else {
