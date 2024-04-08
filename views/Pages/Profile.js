@@ -20,8 +20,6 @@ const Profile = () => {
 
     useFocusEffect(() => {
         checkData((data) => {
-            // Debug statement below
-            //console.log(data);
             if (data.length > 0) {
                 setFirstName(data[0].first_name);
                 setLastName(data[0].last_name);
@@ -38,7 +36,7 @@ const Profile = () => {
 
     const handleEditProfile = () => {
         navigation.navigate('Edit Profile');
-    }
+    };
 
     // This is to format DOB down below to a more readable format
     const formattedDOB = new Date(dob).toLocaleDateString('en-US', {

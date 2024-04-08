@@ -113,7 +113,7 @@ const Memory = () => {
             
             <Text style={MemoryStyle.label}>Memory Date</Text>
                 <TouchableOpacity style={MemoryStyle.memoryTitle} onPress={showDatePicker}>
-                <Text style={{ color: memoryDate ? 'black' : 'gray' }}>{dateFormat(memoryDate) || 'Select Date'}</Text>
+                    <Text style={{ color: memoryDate ? 'black' : 'gray' }}>{dateFormat(memoryDate) || 'Select Date'}</Text>
                 </TouchableOpacity>
                 <DateTimePickerModal
                     isVisible={isDatePickerVisible}
