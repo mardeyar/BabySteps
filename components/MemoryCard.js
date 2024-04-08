@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { format } from "date-fns";
 import * as Haptics from 'expo-haptics';
 
 import { MemoryFeed } from "../views/styles/Home";
 
-const MemoryCard = ({ style, memoryDate, memoryName, memoryInfo, photo, onPressPhoto, onLongPressDelete, memoryId }) => {
+const MemoryCard = ({ style, memoryDate, memoryInfo, photo, onPressPhoto, onLongPressDelete, memoryId }) => {
     // Some weird happening is displaying these dates 1 day early so add +1 to the date to get it to display properly
     // Temp measure for now until it is fixed
     const date = new Date(memoryDate);
@@ -14,21 +14,21 @@ const MemoryCard = ({ style, memoryDate, memoryName, memoryInfo, photo, onPressP
 
     const handleLongPress = () => {
         onLongPressDelete(memoryId);
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     };
 
     return (
-        <TouchableOpacity onLongPress={handleLongPress} activeOpacity={1}>
+        <TouchableOpacity onLongPress={handleLongPress} activeOpacity={0.9}>
             <View style={[MemoryFeed.card, style]}>
                 <View style={MemoryFeed.divider}>
                     <Text style={MemoryFeed.dateText}>{formattedDate}</Text>
                 </View>
                 
-                <View>
-                    <TouchableOpacity onPress={onPressPhoto} activeOpacity={1}>
+                <View style={MemoryFeed.row}>
+                    <Text style={MemoryFeed.memoryText}>{memoryInfo}</Text>
+                    <TouchableOpacity onPress={onPressPhoto} activeOpacity={0}>
                         {photo && <Image source={{ uri: photo }} style={MemoryFeed.image} />}
                     </TouchableOpacity>
-                    <Text style={MemoryFeed.memoryText}>{memoryInfo}</Text>
                 </View>
             </View>
         </TouchableOpacity>
