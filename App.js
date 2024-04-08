@@ -45,6 +45,9 @@ export default function App() {
           name="Home" 
           component={MainPage} 
           options={{
+            headerStyle: {
+              backgroundColor: '#EAEEEF',
+            },
             tabBarIcon: ({ color, size }) => (
               <Ionicons name='home' color={color} size={size} />
             ),
@@ -58,6 +61,9 @@ export default function App() {
           name="Add Memory" 
           component={Memory} 
           options={{
+            headerStyle: {
+              backgroundColor: '#EAEEEF',
+            },
             tabBarIcon: ({ color, size }) => (
               <Ionicons name='add-circle-outline' color={color} size={size} />
             ),
@@ -67,6 +73,9 @@ export default function App() {
           name="Settings Page" 
           component={SettingsPage} 
           options={{
+            headerStyle: {
+              backgroundColor: '#EAEEEF',
+            },
             headerShown: false,
             tabBarLabel: 'Settings',
             tabBarIcon: ({ color, size }) => (
