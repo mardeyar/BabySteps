@@ -10,7 +10,7 @@ export const ProfileStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        width: '90%'
+        width: '98%'
     },
     profilePic: {
         width: 200,
@@ -25,14 +25,14 @@ export const ProfileStyle = StyleSheet.create({
         fontWeight: '700',
         textAlign: 'center',
         padding: 1,
-        color: "#656565",
+        color: "rgba(0, 0, 0, 0.7)",
     },
     birthText: {
         fontSize: 16,
         fontWeight: '500',
         textAlign: 'center',
-        color: "#656565",
-        margin: 4
+        color: "rgba(0, 0, 0, 0.8)",
+        margin: 5
     },
     divider: {
         borderBottomWidth: 1,

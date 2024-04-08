@@ -9,21 +9,24 @@ export const MemoryStyle = StyleSheet.create({
     memoryTitle: {
         width: '90%',
         borderColor: '#909090',
-        borderWidth: 1,
-        borderRadius: 5,
-        padding: 10
+        borderWidth: 1.5,
+        borderRadius: 3,
+        padding: 10,
+        paddingHorizontal: 7,
+        paddingVertical: 13
     },
     memoryField: {
         width: '90%',
         borderColor: '#909090',
-        borderWidth: 1,
-        borderRadius: 5,
+        borderWidth: 1.5,
+        borderRadius: 3,
         paddingHorizontal: 10,
         paddingTop: 10,
         height: 100
     },
     label: {
         fontWeight: '600',
+        fontSize: 15,
         width: '90%',
         paddingVertical: 8,
     }

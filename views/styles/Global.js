@@ -16,28 +16,17 @@ export const Btn = StyleSheet.create({
         width: '35%',
         paddingVertical: 15,
         paddingHorizontal: 20,
-        backgroundColor: 'rgb(211, 230, 255)',
-        borderRadius: 100,
+        backgroundColor: '#9DCFE5',
+        borderRadius: 50,
         borderColor: 'rgba(0, 0, 0, 0.5)',
         borderWidth: 0.3,
         justifyContent: 'center',
         alignContent: 'center',
-        ...Platform.select({
-            ios: {
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 1 },
-              shadowOpacity: 0.2,
-              shadowRadius: 1,
-            },
-            android: {
-              elevation: 1,
-            },
-          }),
     },
     text: {
         fontWeight: '600',
         textAlign: 'center',
-        color: "rgba(0, 0, 0, 0.7)"
+        color: "rgba(0, 0, 0, 0.85)"
     }
 })
 

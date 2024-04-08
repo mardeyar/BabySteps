@@ -5,7 +5,7 @@ export const MemoryFeed = StyleSheet.create({
         width: '100%',
         flex: 1,
         backgroundColor: 'rgb(242, 242, 242)',
-        marginBottom: 8,
+        marginBottom: 5,
         paddingVertical: 10
     },
     divider: {
@@ -19,24 +19,19 @@ export const MemoryFeed = StyleSheet.create({
         paddingBottom: 10
     },
     dateText: {
-        fontWeight: '600',
+        fontWeight: '700',
         fontSize: 16,
-        textAlign: 'center',
+        textAlign: 'left',
         borderBottomColor: "#909090",
         borderBottomWidth: 5,
+        color: 'rgba(0, 0, 0, 0.75)'
     },
     memoryText: {
-        paddingTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
-        fontWeight: '500'
-    },
-    memoryTitle: {
-        width: '90%',
-        borderColor: '#909090',
-        borderWidth: 1,
-        borderRadius: 5,
-        padding: 10
+        fontWeight: '500',
+        width: '65%',
+        color: 'rgba(0, 0, 0, 0.75)'
     },
     memoryField: {
         width: '90%',
@@ -53,12 +48,47 @@ export const MemoryFeed = StyleSheet.create({
         paddingVertical: 8,
     },
     image: {
-        width: "95%",
-        height: 300,
+        width: 120,
+        height: 120,
         resizeMode: 'cover',
         marginLeft: 'auto',
         marginRight: 'auto'
     },
+    row: {
+        flexDirection: 'row', 
+    },
+    feedTitle: {
+        fontWeight: '700',
+        fontSize: 22,
+        color: 'rgba(0, 0, 0, 0.7)',
+        padding: 10
+    },
+    feedPhoto: {
+        width: 70,
+        height: 70,
+        borderRadius: 100
+    },
+    titleRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 6,
+        backgroundColor: '#EAEEEF',
+        borderBottomColor: 'rgba(0, 0, 0, 0.3)',
+        borderBottomWidth: 1
+    }
+});
+
+export const PhotoView = StyleSheet.create({
+    modalBackground: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.95)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    fullScreenImage: {
+        width: '100%',
+        height: '100%',
+    }
 });
 
 export const NoMemory = StyleSheet.create({

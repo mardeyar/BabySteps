@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 
 export const Body = StyleSheet.create({
     scrollContainer: {
@@ -13,29 +13,30 @@ export const Body = StyleSheet.create({
     labelText: {
         fontWeight: '600',
         width: '100%',
+        fontSize: 15,
         paddingHorizontal: 20,
         paddingVertical: 5
     },
     inputField: {
         paddingHorizontal: 7,
         paddingVertical: 13,
-        borderWidth: 1,
+        borderWidth: 1.5,
         borderColor: '#909090',
         width: '90%',
-        borderRadius: 5
+        borderRadius: 3
     },
     numberRow: {
         flexDirection: 'row'
     },
     numberInput: {
         alignItems: 'center',
-        borderWidth: 1,
+        borderWidth: 1.5,
         paddingHorizontal: 7,
         paddingVertical: 13,
         borderColor: '#909090',
         width: '30%',
         margin: 1,
-        borderRadius: 5
+        borderRadius: 3
     }
 });
 
