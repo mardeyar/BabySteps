@@ -49,20 +49,21 @@ const Profile = () => {
     return(
         <View style={ProfileStyle.body}>
             {firstName ? (
-                    <View style={ProfileStyle.cardContainer}>
-                        {/* This block of code will avoid the error message about "empty uri.string" */}
-                        {babyPhoto ? (
-                            <Image source={{ uri: babyPhoto}} style={ProfileStyle.profilePic} />
-                        ) : null}
-                        <Text style={ProfileStyle.profileName}>{firstName} {lastName}</Text>
-                        <View style={ProfileStyle.divider} />
-                        <Text style={ProfileStyle.birthText}>Your journey began on {formattedDOB} when {dadName} & {momName} welcomed you into the world with loving arms.</Text>
-                        <Text style={ProfileStyle.birthText}>You arrived clocking in at a height of {birthHeight} inches and weighed {birthLb}lbs {birthOz}oz.</Text>
-                        <View style={ProfileStyle.divider} />
-                        <TouchableOpacity style={Btn.buttonStyle} onPress={handleEditProfile}>
-                            <Text style={Btn.text}>Edit Profile</Text>
-                        </TouchableOpacity>
-                    </View>
+                <View style={ProfileStyle.cardContainer}>
+                    {/* This block of code will avoid the error message about "empty uri.string" */}
+                    {babyPhoto ? (
+                        <Image source={{ uri: babyPhoto}} style={ProfileStyle.profilePic} />
+                    ) : null}
+                    <Text style={ProfileStyle.profileName}>{firstName} {lastName}</Text>
+                    <View style={ProfileStyle.divider} />
+                    <Text style={ProfileStyle.birthText}>Your journey began on {formattedDOB} when {dadName} & {momName} welcomed you into the world with loving arms.</Text>
+                    <View style={ProfileStyle.spacer}/>
+                    <Text style={ProfileStyle.birthText}>You arrived clocking in at a height of {birthHeight} inches and weighed {birthLb}lbs {birthOz}oz.</Text>
+                    <View style={ProfileStyle.divider} />
+                    <TouchableOpacity style={Btn.buttonStyle} onPress={handleEditProfile}>
+                        <Text style={Btn.text}>Edit Profile</Text>
+                    </TouchableOpacity>
+                </View>
             ) : (
                 <Text style={Setup.message}>You have not set up your babys profile yet. You can do so by navigating to the settings menu and tapping 'Create Profile'</Text>
             )}

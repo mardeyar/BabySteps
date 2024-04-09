@@ -84,30 +84,38 @@ const Home = () => {
     };
 
     return (
-        <ScrollView>
+        <View style={{ flex: 1 }}>
             <View style={MemoryFeed.titleRow}>
-                <Image source={{ uri: babyPhoto }} style={MemoryFeed.feedPhoto} />
-                <Text style={MemoryFeed.feedTitle}>{babyName}'s Feed</Text>
+                {babyName && babyPhoto ? (
+                    <>
+                        <Image source={{ uri: babyPhoto }} style={MemoryFeed.feedPhoto} />
+                        <Text style={MemoryFeed.feedTitle}>{babyName}'s Feed</Text>
+                    </>
+                ) : null}
             </View>
-            {memories.length === 0 ? (
-                <View>
-                    <Text style={NoMemory.text}>You have not posted any memories yet. Get started by tapping the <Text style={NoMemory.span}>Add Memory</Text> button below.</Text>
-                </View>
-            ) : (
-                <View>
-                    {memories.map((memory, index) => (
-                        <MemoryCard 
-                            key={index}
-                            memoryDate={memory.memory_date}
-                            photo={memory.photo}
-                            memoryInfo={memory.memory_info}
-                            onPressPhoto={() => handlePhotoTap(memory.photo)}
-                            onLongPressDelete={() => handleDeleteMemory(memory.memory_id)}
-                            style={MemoryFeed.card}
-                        />
-                    ))}
-                </View>
-            )}
+
+            <ScrollView contentContainerStyle={{ paddingTop: 0 }}>
+                {memories.length === 0 ? (
+                    <View>
+                        <Text style={NoMemory.text}>You have not posted any memories yet. Get started by tapping the <Text style={NoMemory.span}>Add Memory</Text> button below.</Text>
+                    </View>
+                ) : (
+                    <View>
+                        {memories.map((memory, index) => (
+                            <MemoryCard 
+                                key={index}
+                                memoryDate={memory.memory_date}
+                                memoryName={memory.memory_name}
+                                photo={memory.photo}
+                                memoryInfo={memory.memory_info}
+                                onPressPhoto={() => handlePhotoTap(memory.photo)}
+                                onLongPressDelete={() => handleDeleteMemory(memory.memory_id)}
+                                style={MemoryFeed.card}
+                            />
+                        ))}
+                    </View>
+                )}
+            </ScrollView>
 
             {/* Fullscreen photo viewer */}
             <Modal visible={!!selectedPhoto} transparent={true} onRequestClose={closePhoto}>
@@ -121,7 +129,7 @@ const Home = () => {
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>
-        </ScrollView>
+        </View>
     );
 };
 

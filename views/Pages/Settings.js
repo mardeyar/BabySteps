@@ -25,12 +25,50 @@ const toggleDarkMode = () => {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Settings" component={SettingsScreen} />
-      <Stack.Screen name="Create Profile" component={CreateProfile} />
-      <Stack.Screen name="Disclaimer" component={Disclaimer} />
-      <Stack.Screen name="Profile" component={ProfileStackScreen} />
-      <Stack.Screen name="About" component={About} />
-      {/* <Stack.Screen name="Profile" component={Profile} /> */}
+      <Stack.Screen 
+        name="Settings" 
+        component={SettingsScreen} 
+        options={{
+            headerStyle: {
+              backgroundColor: '#EAEEEF',
+            }
+          }}/>
+      <Stack.Screen 
+        name="Create Profile" 
+        component={CreateProfile} 
+        options={{
+            headerStyle: {
+              backgroundColor: '#EAEEEF',
+            }
+          }}
+        />
+      <Stack.Screen 
+        name="Disclaimer" 
+        component={Disclaimer} 
+        options={{
+            headerStyle: {
+              backgroundColor: '#EAEEEF',
+            }
+          }}
+        />
+      <Stack.Screen 
+        name="Profile" 
+        component={ProfileStackScreen} 
+        options={{
+            headerStyle: {
+              backgroundColor: '#EAEEEF',
+            }
+          }}
+        />
+      <Stack.Screen 
+        name="About" 
+        component={About} 
+        options={{
+            headerStyle: {
+              backgroundColor: '#EAEEEF',
+            }
+          }}
+        />
     </Stack.Navigator>
   );
 };
@@ -38,8 +76,14 @@ const toggleDarkMode = () => {
 const ProfileStackScreen = () => {
   return (
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
-      <ProfileStack.Screen name="ProfileScreen" component={Profile} />
-      <ProfileStack.Screen name="Edit Profile" component={EditProfile} />
+      <ProfileStack.Screen 
+        name="ProfileScreen" 
+        component={Profile}
+        />
+      <ProfileStack.Screen 
+        name="Edit Profile" 
+        component={EditProfile} 
+        />
     </ProfileStack.Navigator>
   )
 }

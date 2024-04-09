@@ -42,7 +42,7 @@ const memorySetup = () => {
                     console.log('Table named "memories" already exists: skipping table creation...');
                 } else {
                     tx.executeSql(
-                        'CREATE TABLE IF NOT EXISTS memories (memory_id INTEGER PRIMARY KEY AUTOINCREMENT, memory_date DATE NOT NULL, memory_info TEXT NOT NULL, photo TEXT)',
+                        'CREATE TABLE IF NOT EXISTS memories (memory_id INTEGER PRIMARY KEY AUTOINCREMENT, memory_name TEXT NOT NULL, memory_date DATE NOT NULL, memory_info TEXT NOT NULL, photo TEXT)',
                         [],
                         () => {
                             console.log('Table named "memories" created successfully');
@@ -60,7 +60,7 @@ const memorySetup = () => {
     });
 };
 
-const createProfile = (firstName, lastName, dob, photo, dadName, momName, birthHeight, birthLb, birthOz, doctorName, birthLocation) => {
+const createProfile = (firstName, lastName, dob, photo, dadName, momName, birthHeight, birthLb, birthOz) => {
     db.transaction(tx => {
         tx.executeSql(
             'INSERT INTO baby_profile (first_name, last_name, dob, dad_name, mom_name, birth_height, birth_weight_lb, birth_weight_oz, photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
@@ -94,11 +94,11 @@ const editProfile = (firstName, lastName, dob, photo, dadName, momName, birthHei
     });
 };
 
-const createMemory = (memoryDate, memoryInfo, photo) => {
+const createMemory = (memoryDate, memoryName, memoryInfo, photo) => {
     db.transaction(tx => {
         tx.executeSql(
-            'INSERT INTO memories (memory_date, memory_info, photo) VALUES (?, ?, ?)',
-            [memoryDate, memoryInfo, photo || null],
+            'INSERT INTO memories (memory_date, memory_name, memory_info, photo) VALUES (?, ?, ?, ?)',
+            [memoryDate, memoryName, memoryInfo, photo || null],
             (_, result) => {
                 console.log('Memory created successfully!', result.rowsAffected);
             },
@@ -158,7 +158,6 @@ const checkData = (callback) => {
             [],
             (_, result) => {
                 const rows = result.rows._array;
-                //console.log("Data: ", rows);
                 console.log("Baby data fetched successfully...")
                 if (result.rows._array.length > 0) {
                     callback(result.rows._array);

@@ -5,7 +5,7 @@ import * as Haptics from 'expo-haptics';
 
 import { MemoryFeed } from "../views/styles/Home";
 
-const MemoryCard = ({ style, memoryDate, memoryInfo, photo, onPressPhoto, onLongPressDelete, memoryId }) => {
+const MemoryCard = ({ style, memoryDate, memoryName, memoryInfo, photo, onPressPhoto, onLongPressDelete, memoryId }) => {
     // Some weird happening is displaying these dates 1 day early so add +1 to the date to get it to display properly
     // Temp measure for now until it is fixed
     const date = new Date(memoryDate);
@@ -21,7 +21,7 @@ const MemoryCard = ({ style, memoryDate, memoryInfo, photo, onPressPhoto, onLong
         <TouchableOpacity onLongPress={handleLongPress} activeOpacity={0.9}>
             <View style={[MemoryFeed.card, style]}>
                 <View style={MemoryFeed.divider}>
-                    <Text style={MemoryFeed.dateText}>{formattedDate}</Text>
+                    <Text style={MemoryFeed.dateText}>{formattedDate}: {memoryName}</Text>
                 </View>
                 
                 <View style={MemoryFeed.row}>

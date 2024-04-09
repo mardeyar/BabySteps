@@ -142,7 +142,7 @@ const EditProfile = () => {
             </View>
 
             <View style={Body.inputRow}>
-            <Text style={Body.labelText}>First Name</Text>
+            <Text style={Body.labelText}>Last Name</Text>
                 <TextInput
                     style={Body.inputField}
                     placeholder="Last name"
