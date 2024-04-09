@@ -22,7 +22,7 @@ workflows:
       - name: Install Dependencies
         script: npm install
       - name: Build iOS
-        script: npx react-native run-ios --configuration Release
+        script: npx react-native run-ios
       - name: Build Android
         script: npx react-native run-android --variant=release
     artifacts:
