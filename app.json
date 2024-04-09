@@ -21,7 +21,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.yarmedon.BabySteps"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
@@ -34,6 +38,14 @@
         }
       ],
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "02eb9987-310a-4d70-9a2d-3bfa3b78f9de"
+      }
+    }
   }
 }
