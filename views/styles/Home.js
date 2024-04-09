@@ -4,8 +4,8 @@ export const MemoryFeed = StyleSheet.create({
     card: {
         width: '100%',
         flex: 1,
-        backgroundColor: 'rgb(242, 242, 242)',
-        marginBottom: 5,
+        backgroundColor: '#EEEEEE',
+        marginBottom: 4,
         paddingVertical: 10
     },
     divider: {
@@ -20,18 +20,17 @@ export const MemoryFeed = StyleSheet.create({
     },
     dateText: {
         fontWeight: '700',
-        fontSize: 16,
+        fontSize: 17,
         textAlign: 'left',
-        borderBottomColor: "#909090",
-        borderBottomWidth: 5,
         color: 'rgba(0, 0, 0, 0.75)'
     },
     memoryText: {
         paddingLeft: 10,
         paddingRight: 10,
-        fontWeight: '500',
+        fontWeight: '300',
+        fontSize: 15,
         width: '65%',
-        color: 'rgba(0, 0, 0, 0.75)'
+        color: 'rgba(0, 0, 0, 0.85)'
     },
     memoryField: {
         width: '90%',
@@ -48,11 +47,13 @@ export const MemoryFeed = StyleSheet.create({
         paddingVertical: 8,
     },
     image: {
-        width: 120,
-        height: 120,
+        width: 125,
+        height: 125,
         resizeMode: 'cover',
-        marginLeft: 'auto',
-        marginRight: 'auto'
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: 'rgba(20, 20, 20, 0.3)'
+
     },
     row: {
         flexDirection: 'row', 
@@ -64,9 +65,11 @@ export const MemoryFeed = StyleSheet.create({
         padding: 10
     },
     feedPhoto: {
-        width: 70,
-        height: 70,
-        borderRadius: 100
+        width: 50,
+        height: 50,
+        borderRadius: 100,
+        borderWidth: 0.5,
+        borderColor: 'grey'
     },
     titleRow: {
         flexDirection: 'row',

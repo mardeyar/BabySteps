@@ -23,7 +23,9 @@ export const Body = StyleSheet.create({
         borderWidth: 1.5,
         borderColor: '#909090',
         width: '90%',
-        borderRadius: 3
+        borderRadius: 3,
+        fontWeight: '500',
+        color: 'rgba(0, 0, 0, 0.85)'
     },
     numberRow: {
         flexDirection: 'row'
@@ -36,7 +38,9 @@ export const Body = StyleSheet.create({
         borderColor: '#909090',
         width: '30%',
         margin: 1,
-        borderRadius: 3
+        borderRadius: 3,
+        fontWeight: '500',
+        color: 'rgba(0, 0, 0, 0.85)'
     }
 });
 

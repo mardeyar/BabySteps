@@ -14,9 +14,8 @@ export const Btn = StyleSheet.create({
     buttonStyle: {
         margin: 40,
         width: '35%',
-        paddingVertical: 15,
-        paddingHorizontal: 20,
-        backgroundColor: '#9DCFE5',
+        paddingVertical: 12,
+        backgroundColor: '#7FBBDC',
         borderRadius: 50,
         borderColor: 'rgba(0, 0, 0, 0.5)',
         borderWidth: 0.3,
@@ -26,14 +25,7 @@ export const Btn = StyleSheet.create({
     text: {
         fontWeight: '600',
         textAlign: 'center',
-        color: "rgba(0, 0, 0, 0.85)"
+        color: "rgba(0, 0, 0, 0.85)",
+        padding: 0
     }
-})
-
-export const HeaderStyle = StyleSheet.create({
-  text: {
-    fontFamily: 'Carrois',
-    fontSize: 28,
-    fontWeight: 'bold'
-  }
 })

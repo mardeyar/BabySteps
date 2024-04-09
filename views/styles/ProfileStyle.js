@@ -4,7 +4,6 @@ export const ProfileStyle = StyleSheet.create({
     body: {
         alignItems: 'center',
         paddingTop: 20,
-        //backgroundColor: '#F0F0F0'
     },
     cardContainer: {
         justifyContent: 'center',
@@ -30,13 +29,12 @@ export const ProfileStyle = StyleSheet.create({
     birthText: {
         fontSize: 16,
         fontWeight: '500',
-        textAlign: 'center',
+        textAlign: 'left',
         color: "rgba(0, 0, 0, 0.8)",
-        margin: 5
     },
     divider: {
         borderBottomWidth: 1,
-        borderBottomColor: 'rgba(0, 0, 0, 0.5)',
+        borderBottomColor: 'rgba(0, 0, 0, 0.25)',
         width: '100%',
         margin: 10
     },
