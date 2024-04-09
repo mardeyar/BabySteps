@@ -9,7 +9,6 @@ workflows:
         - app_store_credentials
       vars:
         GOOGLE_PLAY_TRACK: "beta"
-      nodejs: 14.x
       react_native: latest
       xcode: latest
     triggering:
