@@ -21,6 +21,11 @@ workflows:
     scripts:
       - name: Install Node Dependencies
         script: npm install
+      - name: Install CocoaPods Dependencies
+        script: |
+          cd ios
+          pod install
+          cd ..
       - name: Build iOS
         script: npx react-native build-ios
     artifacts:
