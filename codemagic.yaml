@@ -10,7 +10,6 @@ workflows:
       vars:
         GOOGLE_PLAY_TRACK: "beta"
       node: latest
-      react_native: latest
     triggering:
       events:
         - push
