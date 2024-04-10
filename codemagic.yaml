@@ -22,7 +22,7 @@ workflows:
       - name: Install Node Dependencies
         script: npm install
       - name: Build iOS
-        script: npx react-native build-ios --no-signature
+        script: npx react-native build-ios
     artifacts:
       - build/**/*.app
     publishing:
