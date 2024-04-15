@@ -22,7 +22,7 @@ export const MemoryFeed = StyleSheet.create({
         fontWeight: '700',
         fontSize: 17,
         textAlign: 'left',
-        color: 'rgba(0, 0, 0, 0.75)'
+        color: 'rgba(0, 0, 0, 0.7)'
     },
     memoryText: {
         paddingLeft: 10,
@@ -61,7 +61,7 @@ export const MemoryFeed = StyleSheet.create({
     feedTitle: {
         fontWeight: '700',
         fontSize: 22,
-        color: 'rgba(0, 0, 0, 0.7)',
+        color: 'rgba(0, 0, 0, 0.5)',
         padding: 10
     },
     feedPhoto: {
