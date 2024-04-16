@@ -49,6 +49,36 @@ Installation will vary depending on which device you are installing on. Instruct
 
 ## Preview
 
+Profile section: after filling in the profile creation screen, your profile will be displayed through Settings->Profile where you can also edit your profile.
+
+![2-1](https://github.com/mardeyar/BabySteps/assets/117761940/82775a7c-45cd-443f-9fbf-773e7fca122f)
+
+Settings screen: this is where general information and settings are found.
+
+![3](https://github.com/mardeyar/BabySteps/assets/117761940/f867cb20-1cd7-479c-ba11-8019dc2d67b9)
+
+Add memory: attach a photo, title and description along with date selection for when this memory occured.
+
+![4](https://github.com/mardeyar/BabySteps/assets/117761940/49913bfd-b2f3-4c5e-bece-5a67493918e8)
+
+Main page: this is your feed for all memories that you enter. Upon opening the app it will default to this landing screen.
+
+![1](https://github.com/mardeyar/BabySteps/assets/117761940/5abdd0a0-9515-4d97-8ff2-e490205e655d)
+
 ## Known Issues
 
+As Babysteps is a beta release, there are likely to be bugs and issues. Some common issues will be listed here but please see the [issues tab](https://github.com/mardeyar/BabySteps/issues) to raise a bug report if it's not already acknowledged.
+
+**[X]** Dark/light mode toggle doesn't work
+
+**[X]** Video memories not yet supported
+
+**[X]** Date picker displays twice occasionally on Android
+
+## Other Notes
+
+For important notes regarding Babysteps, please check the ***About*** and ***Disclaimer*** sections from within the settings menu.
+
 ## License
+
+[License information](https://github.com/mardeyar/BabySteps/blob/main/LICENSE)
