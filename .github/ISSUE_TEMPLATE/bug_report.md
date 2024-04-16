@@ -8,21 +8,22 @@ assignees: mardeyar
 ---
 
 **Describe the bug**
-A brief description of what the bug is.
+[REPLACE THIS TEXT] A brief description of what the bug is. 
 
 **What happened to produce the bug?**
-Describe what you were doing when the bug occurred: how to reproduce?
+[REPLACE THIS TEXT] Describe what you were doing when the bug occurred: how to reproduce?
 
 **Bug behaviour**
-What did you expect to happen? What happened instead?
+[REPLACE THIS TEXT] What did you expect to happen? What happened instead?
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
 **Smartphone (please complete the following information):**
+[REPLACE THIS TEXT] 
  - Device: [e.g. iPhone12]
  - OS: [e.g. iOS17.1]
  - App Version [e.g. v0.1-BETA]
 
 **Additional context**
-Add any other context about the problem here.
+[REPLACE THIS TEXT] Add any other context about the problem here.
